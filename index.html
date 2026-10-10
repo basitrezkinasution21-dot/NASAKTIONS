@@ -1,0 +1,2651 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LegalDraft Basit Rezki| Aplikasi Membuat Gugatan Perceraian</title>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --navy: #14263d;
+    --gold: #c6a15b;
+    --bg: #f3f5f8;
+    --text: #253247;
+    --muted: #667085;
+    --border: #dce2ea;
+    --white: #ffffff;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    background: var(--navy);
+    color: white;
+    padding: 24px 18px;
+    border-bottom: 4px solid var(--gold);
+}
+
+.header-inner {
+    width: min(960px, 94%);
+    margin: auto;
+}
+
+.brand {
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.brand span {
+    color: var(--gold);
+}
+
+header p {
+    color: #d7deea;
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: min(960px, 94%);
+    margin: auto;
+    padding: 25px 0 50px;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 15px rgba(20, 38, 61, .04);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--navy);
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 19px;
+    margin-top: 0;
+}
+
+.small,
+.help,
+.step-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd3df;
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #c6a15b66;
+    border-color: var(--gold);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 16px;
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.choice {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    cursor: pointer;
+    background: white;
+    color: var(--text);
+    text-align: left;
+}
+
+.choice strong {
+    display: block;
+    color: var(--navy);
+    margin-bottom: 5px;
+}
+
+.choice:hover,
+.choice.selected {
+    border-color: var(--gold);
+    background: #fffbf2;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+button {
+    border: 0;
+    border-radius: 7px;
+    padding: 12px 17px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.primary {
+    background: var(--navy);
+    color: white;
+}
+
+.secondary {
+    background: #e9edf3;
+    color: var(--navy);
+}
+
+.gold {
+    background: var(--gold);
+    color: #172235;
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+    height: 6px;
+    background: #e4e8ee;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 12px 0 22px;
+}
+
+#progressBar {
+    height: 100%;
+    width: 12.5%;
+    background: var(--gold);
+    transition: width .2s;
+}
+
+
+/* =========================================================
+   UTILITY
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+.notice {
+    background: #fff8e8;
+    border-left: 4px solid var(--gold);
+    padding: 12px 14px;
+    font-size: 13px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   DOKUMEN GUGATAN
+   SEMUA FONT = ARIAL
+========================================================= */
+
+#output {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 30px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    line-height: 1.6;
+
+    color: #000;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   JUDUL
+========================================================= */
+
+.legal-title {
+    text-align: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   ALAMAT PENGADILAN
+========================================================= */
+
+.court-address {
+    margin-bottom: 25px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   IDENTITAS PIHAK
+========================================================= */
+
+.party-title {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-weight: bold;
+    text-transform: uppercase;
+
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+
+/*
+    IDENTITAS:
+
+    Kolom 1 = Label
+    Kolom 2 = :
+    Kolom 3 = Nilai
+*/
+
+.identity {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.identity-row {
+    display: grid;
+
+    grid-template-columns:
+        155px
+        15px
+        minmax(0, 1fr);
+
+    align-items: start;
+
+    line-height: 1.5;
+
+    margin-bottom: 2px;
+}
+
+.identity-label {
+    text-align: left;
+}
+
+.identity-colon {
+    text-align: center;
+}
+
+.identity-value {
+    text-align: left;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   MELAWAN
+========================================================= */
+
+.against {
+    text-align: left;
+
+    font-weight: bold;
+
+
+    margin: 18px 0;
+}
+
+
+/* =========================================================
+   PARAGRAF
+========================================================= */
+
+.legal-paragraph {
+    text-align: justify;
+
+    line-height: 1.6;
+
+    margin: 0 0 10px 0;
+}
+
+
+/* =========================================================
+   JUDUL BAGIAN
+========================================================= */
+
+.section-title {
+    text-align: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 12pt;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    margin-top: 28px;
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   POSITA
+========================================================= */
+
+.posita-row {
+    display: grid;
+
+    grid-template-columns:
+        30px
+        minmax(0, 1fr);
+
+    column-gap: 5px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.6;
+}
+
+.posita-number {
+    text-align: left;
+}
+
+.posita-content {
+    text-align: justify;
+}
+
+
+/* =========================================================
+   PETITUM
+========================================================= */
+
+.petitum-intro {
+    text-align: justify;
+
+    line-height: 1.6;
+
+    margin-bottom: 16px;
+}
+
+.petitum-row {
+    display: grid;
+
+    grid-template-columns:
+        30px
+        minmax(0, 1fr);
+
+    column-gap: 5px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.6;
+}
+
+.petitum-number {
+    text-align: left;
+}
+
+.petitum-content {
+    text-align: justify;
+}
+
+
+/* =========================================================
+   PENUTUP
+========================================================= */
+
+.closing {
+    text-align: justify;
+
+    margin-top: 22px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   TANDA TANGAN
+========================================================= */
+
+.signature {
+    width: 270px;
+
+    margin-left: auto;
+
+    margin-top: 45px;
+
+    text-align: center;
+}
+
+.signature-space {
+    height: 85px;
+}
+
+.signature-name {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 18px;
+}
+
+
+/* =========================================================
+   A4 PRINT / PDF
+========================================================= */
+
+@page {
+    size: A4;
+
+    margin-top: 2.5cm;
+    margin-right: 2.5cm;
+    margin-bottom: 2.5cm;
+    margin-left: 3cm;
+}
+
+
+@media print {
+
+    /* Paksa seluruh dokumen menggunakan Arial */
+    *,
+    *::before,
+    *::after {
+        font-family: Arial, Helvetica, sans-serif !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    html,
+    body {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    /*
+       SEMBUNYIKAN HEADER DAN ELEMEN APLIKASI
+       Agar tidak ikut tercetak dalam PDF
+    */
+    body > header,
+    body > footer,
+    header,
+    footer,
+    #wizard,
+    body > main > section.card:first-child,
+    #resultSection > h2,
+    #resultSection > p,
+    .no-print,
+    .actions,
+    button {
+        display: none !important;
+    }
+
+    /* Hilangkan bingkai tampilan aplikasi */
+    main {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #resultSection {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
+    }
+
+    /* Hanya isi dokumen gugatan yang dicetak */
+    #output {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 12pt !important;
+        line-height: 1.6 !important;
+    }
+
+    #output .identity-row {
+        display: grid !important;
+        grid-template-columns: 155px 15px minmax(0, 1fr) !important;
+        line-height: 1.5 !important;
+        margin-bottom: 2px !important;
+    }
+
+    #output .legal-paragraph,
+    #output .posita-content,
+    #output .petitum-content,
+    #output .petitum-intro {
+        text-align: justify !important;
+    }
+
+    #output .section-title {
+        page-break-after: avoid;
+    }
+}
+
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .grid,
+    .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    .identity-row {
+        grid-template-columns:
+            125px
+            15px
+            minmax(0, 1fr);
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="brand">
+            Your<span>Lawyer</span>
+        </div>
+
+        <p>
+            Jadilah pengacara perceraian mu sendiri
+        </p>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="card">
+
+    <h1>
+        Aplikasi Membuat Gugatan Perceraian
+    </h1>
+
+    <p class="small">
+        Sistem penyusunan draft gugatan perceraian
+        untuk kebutuhan penyusunan awal dokumen hukum.
+    </p>
+
+    <div class="notice">
+
+        <strong>Catatan:</strong>
+
+        Draft yang dihasilkan merupakan template.
+        Seluruh fakta, dasar hukum, kompetensi pengadilan,
+        posita, dan petitum harus diperiksa kembali
+        sebelum digunakan dalam perkara sebenarnya.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WIZARD
+===================================================== -->
+
+<section class="card" id="wizard">
+
+
+    <div
+        class="step-label"
+        id="stepLabel"
+    >
+        Langkah 1 dari 8
+    </div>
+
+
+    <div class="progress">
+
+        <div id="progressBar"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 1
+    ================================================== -->
+
+    <div class="step">
+
+        <h2>
+            Jenis Perkara
+        </h2>
+
+        <p class="small">
+            Pilih jalur pengadilan berdasarkan status
+            perkawinan para pihak.
+        </p>
+
+
+        <div class="choice-grid">
+
+
+            <button
+                type="button"
+                class="choice"
+                data-religion="muslim"
+            >
+
+                <strong>
+                    Muslim
+                </strong>
+
+                Pengadilan Agama
+
+            </button>
+
+
+            <button
+                type="button"
+                class="choice"
+                data-religion="nonmuslim"
+            >
+
+                <strong>
+                    Non-Muslim
+                </strong>
+
+                Pengadilan Negeri
+
+            </button>
+
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="religion"
+        >
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 2
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Identitas Penggugat
+        </h2>
+
+
+        <div class="grid">
+
+
+            <div>
+
+                <label>
+                    Nama Lengkap
+                </label>
+
+                <input
+                    id="pNama"
+                    type="text"
+                    placeholder="Nama lengkap Penggugat"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tempat Lahir
+                </label>
+
+                <input
+                    id="pTempatLahir"
+                    type="text"
+                    placeholder="Tempat lahir"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tanggal Lahir
+                </label>
+
+                <input
+                    id="pTanggalLahir"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Jenis Kelamin
+                </label>
+
+                <select id="pGender">
+
+                    <option value="">
+                        Pilih
+                    </option>
+
+                    <option value="Laki-laki">
+                        Laki-laki
+                    </option>
+
+                    <option value="Perempuan">
+                        Perempuan
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Agama
+                </label>
+
+                <input
+                    id="pAgama"
+                    type="text"
+                    placeholder="Agama"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Pekerjaan
+                </label>
+
+                <input
+                    id="pPekerjaan"
+                    type="text"
+                    placeholder="Pekerjaan"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <label>
+            Alamat Lengkap
+        </label>
+
+        <textarea
+            id="pAlamat"
+            placeholder="Alamat lengkap Penggugat"
+        ></textarea>
+
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 3
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Identitas Tergugat
+        </h2>
+
+
+        <div class="grid">
+
+
+            <div>
+
+                <label>
+                    Nama Lengkap
+                </label>
+
+                <input
+                    id="tNama"
+                    type="text"
+                    placeholder="Nama lengkap Tergugat"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tempat Lahir
+                </label>
+
+                <input
+                    id="tTempatLahir"
+                    type="text"
+                    placeholder="Tempat lahir"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tanggal Lahir
+                </label>
+
+                <input
+                    id="tTanggalLahir"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Jenis Kelamin
+                </label>
+
+                <select id="tGender">
+
+                    <option value="">
+                        Pilih
+                    </option>
+
+                    <option value="Laki-laki">
+                        Laki-laki
+                    </option>
+
+                    <option value="Perempuan">
+                        Perempuan
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Agama
+                </label>
+
+                <input
+                    id="tAgama"
+                    type="text"
+                    placeholder="Agama"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Pekerjaan
+                </label>
+
+                <input
+                    id="tPekerjaan"
+                    type="text"
+                    placeholder="Pekerjaan"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <label>
+            Alamat Lengkap
+        </label>
+
+        <textarea
+            id="tAlamat"
+            placeholder="Alamat lengkap Tergugat"
+        ></textarea>
+
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 4
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Data Perkawinan
+        </h2>
+
+
+        <div class="grid">
+
+
+            <div>
+
+                <label>
+                    Nomor Buku / Akta Nikah
+                </label>
+
+                <input
+                    id="nomorNikah"
+                    type="text"
+                    placeholder="Nomor buku atau akta nikah"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tanggal Perkawinan
+                </label>
+
+                <input
+                    id="tanggalNikah"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Tempat Perkawinan
+                </label>
+
+                <input
+                    id="tempatNikah"
+                    type="text"
+                    placeholder="Tempat perkawinan"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Nama Pengadilan
+                </label>
+
+                <input
+                    id="pengadilan"
+                    type="text"
+                    placeholder="Contoh: Jakarta Selatan"
+                >
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 5
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Alasan dan Kronologi Perceraian
+        </h2>
+
+
+        <p class="small">
+
+            Masukkan kronologi secara berurutan.
+            Setiap baris akan menjadi bagian dari
+            uraian POSITA.
+
+        </p>
+
+
+        <textarea
+            id="kronologi"
+            style="min-height:240px"
+            placeholder="Contoh:
+Penggugat dan Tergugat mulai sering berselisih.
+Perselisihan terjadi secara terus-menerus.
+Tergugat meninggalkan tempat kediaman bersama.
+Para pihak telah berupaya melakukan perdamaian.
+Namun rumah tangga tidak dapat dipertahankan."
+        ></textarea>
+
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 6
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Anak dan Hak Asuh
+        </h2>
+
+
+        <label>
+            Apakah terdapat anak?
+        </label>
+
+
+        <select id="adaAnak">
+
+            <option value="">
+                Pilih
+            </option>
+
+            <option value="Ya">
+                Ya
+            </option>
+
+            <option value="Tidak">
+                Tidak
+            </option>
+
+        </select>
+
+
+        <div
+            id="anakSection"
+            class="hidden"
+        >
+
+
+            <label>
+                Data Anak
+            </label>
+
+            <textarea
+                id="dataAnak"
+                placeholder="Nama, tempat/tanggal lahir, jenis kelamin"
+            ></textarea>
+
+
+            <label>
+                Hak Asuh Anak
+            </label>
+
+            <textarea
+                id="hakAsuh"
+                placeholder="Uraikan permohonan hak asuh"
+            ></textarea>
+
+
+            <label>
+                Nafkah Anak
+            </label>
+
+            <textarea
+                id="nafkahAnak"
+                placeholder="Uraikan permohonan nafkah anak"
+            ></textarea>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 7
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Permohonan Tambahan
+        </h2>
+
+
+        <label>
+            Petitum Tambahan
+        </label>
+
+
+        <textarea
+            id="petitumTambahan"
+            style="min-height:180px"
+            placeholder="Masukkan permohonan tambahan apabila diperlukan."
+        ></textarea>
+
+
+    </div>
+
+
+    <!-- =================================================
+         STEP 8
+    ================================================== -->
+
+    <div class="step hidden">
+
+        <h2>
+            Pemeriksaan Draft
+        </h2>
+
+
+        <p>
+            Seluruh data telah siap digunakan
+            untuk membuat draft gugatan.
+        </p>
+
+
+        <div class="notice">
+
+            Periksa kembali identitas para pihak,
+            tanggal perkawinan, alamat,
+            kronologi, data anak, dan petitum.
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================== -->
+
+    <div class="actions">
+
+
+        <button
+            type="button"
+            class="secondary"
+            id="backBtn"
+        >
+            Kembali
+        </button>
+
+
+        <button
+            type="button"
+            class="primary"
+            id="nextBtn"
+        >
+            Lanjut
+        </button>
+
+
+        <button
+            type="button"
+            class="gold hidden"
+            id="generateBtn"
+        >
+            Buat Draft Gugatan
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<section
+    class="card hidden"
+    id="resultSection"
+>
+
+
+    <h2>
+        Draft Gugatan Perceraian
+    </h2>
+
+
+    <p class="small">
+        Periksa kembali dokumen sebelum digunakan.
+    </p>
+
+
+    <div id="output"></div>
+
+
+    <div class="actions no-print">
+
+
+        <button
+            class="primary"
+            id="copyBtn"
+        >
+            Salin Teks
+        </button>
+
+
+        <button
+            class="gold"
+            id="downloadBtn"
+        >
+            Unduh TXT
+        </button>
+
+
+        <button
+            class="primary"
+            id="pdfBtn"
+        >
+            Simpan sebagai PDF
+        </button>
+
+
+        <button
+            class="secondary"
+            id="editBtn"
+        >
+            Edit Formulir
+        </button>
+
+
+    </div>
+
+
+    <p
+        id="copyStatus"
+        class="help no-print"
+    ></p>
+
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+   NASAKTIONS® — Aplikasi Hukum
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+"use strict";
+
+
+const steps =
+    Array.from(
+        document.querySelectorAll(".step")
+    );
+
+
+const $ =
+    id => document.getElementById(id);
+
+
+let currentStep = 0;
+
+
+/* =========================================================
+   GET VALUE
+========================================================= */
+
+function val(id) {
+
+    const element = $(id);
+
+    if (!element) {
+        return "";
+    }
+
+    return element.value.trim();
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    return String(text ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   NEW LINE TO BR
+========================================================= */
+
+function nl2br(text) {
+
+    return escapeHTML(
+        text || "[belum diisi]"
+    ).replace(/\n/g, "<br>");
+}
+
+
+/* =========================================================
+   IDENTITY ROW
+========================================================= */
+
+function identityRow(label, content) {
+
+    return `
+
+        <div class="identity-row">
+
+            <div class="identity-label">
+                ${escapeHTML(label)}
+            </div>
+
+            <div class="identity-colon">
+                :
+            </div>
+
+            <div class="identity-value">
+                ${escapeHTML(
+                    content || "[belum diisi]"
+                )}
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   DATE INDONESIA
+========================================================= */
+
+function dateID(date) {
+
+    if (!date) {
+        return "[belum diisi]";
+    }
+
+
+    const parts =
+        date.split("-");
+
+
+    if (parts.length !== 3) {
+        return date;
+    }
+
+
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+}
+
+
+/* =========================================================
+   SHOW STEP
+========================================================= */
+
+function showStep(index) {
+
+    steps.forEach(
+        (step, i) => {
+
+            step.classList.toggle(
+                "hidden",
+                i !== index
+            );
+
+        }
+    );
+
+
+    $("stepLabel").textContent =
+        `Langkah ${index + 1} dari ${steps.length}`;
+
+
+    $("progressBar").style.width =
+        `${((index + 1) / steps.length) * 100}%`;
+
+
+    $("backBtn").disabled =
+        index === 0;
+
+
+    $("nextBtn").classList.toggle(
+        "hidden",
+        index === steps.length - 1
+    );
+
+
+    $("generateBtn").classList.toggle(
+        "hidden",
+        index !== steps.length - 1
+    );
+}
+
+
+/* =========================================================
+   RELIGION SELECTION
+========================================================= */
+
+document
+    .querySelectorAll("[data-religion]")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll("[data-religion]")
+                    .forEach(btn =>
+                        btn.classList.remove("selected")
+                    );
+
+
+                button.classList.add("selected");
+
+
+                $("religion").value =
+                    button.dataset.religion;
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   CHILDREN
+========================================================= */
+
+$("adaAnak").addEventListener(
+    "change",
+    function () {
+
+        $("anakSection")
+            .classList.toggle(
+                "hidden",
+                this.value !== "Ya"
+            );
+
+    }
+);
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+function validateStep(index) {
+
+
+    if (index === 0) {
+
+        if (!val("religion")) {
+
+            alert(
+                "Silakan pilih jenis perkara."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    if (index === 1) {
+
+        if (!val("pNama")) {
+
+            alert(
+                "Nama Penggugat wajib diisi."
+            );
+
+            return false;
+        }
+
+
+        if (!val("pAlamat")) {
+
+            alert(
+                "Alamat Penggugat wajib diisi."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    if (index === 2) {
+
+        if (!val("tNama")) {
+
+            alert(
+                "Nama Tergugat wajib diisi."
+            );
+
+            return false;
+        }
+
+
+        if (!val("tAlamat")) {
+
+            alert(
+                "Alamat Tergugat wajib diisi."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    if (index === 3) {
+
+        if (!val("tanggalNikah")) {
+
+            alert(
+                "Tanggal perkawinan wajib diisi."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    if (index === 4) {
+
+        if (!val("kronologi")) {
+
+            alert(
+                "Kronologi wajib diisi."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    return true;
+}
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+$("nextBtn").addEventListener(
+    "click",
+    () => {
+
+        if (!validateStep(currentStep)) {
+            return;
+        }
+
+
+        if (
+            currentStep <
+            steps.length - 1
+        ) {
+
+            currentStep++;
+
+            showStep(currentStep);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+$("backBtn").addEventListener(
+    "click",
+    () => {
+
+        if (currentStep > 0) {
+
+            currentStep--;
+
+            showStep(currentStep);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   BUILD DRAFT
+========================================================= */
+
+function buildDraftHTML() {
+
+
+    const religion =
+        val("religion");
+
+
+    const courtType =
+        religion === "muslim"
+            ? "Pengadilan Agama"
+            : "Pengadilan Negeri";
+
+
+    const courtName =
+        val("pengadilan") ||
+        "[NAMA PENGADILAN]";
+
+
+    /* =====================================================
+       PENGGUGAT
+    ===================================================== */
+
+    const plaintiffHTML = `
+
+
+        <div class="party-title">
+            PENGGUGAT
+        </div>
+
+
+        <div class="identity">
+
+
+            ${identityRow(
+                "Nama",
+                val("pNama")
+            )}
+
+
+            ${identityRow(
+                "Tempat Lahir",
+                val("pTempatLahir")
+            )}
+
+
+            ${identityRow(
+                "Tanggal Lahir",
+                dateID(
+                    val("pTanggalLahir")
+                )
+            )}
+
+
+            ${identityRow(
+                "Jenis Kelamin",
+                val("pGender")
+            )}
+
+
+            ${identityRow(
+                "Agama",
+                val("pAgama")
+            )}
+
+
+            ${identityRow(
+                "Pekerjaan",
+                val("pPekerjaan")
+            )}
+
+
+            ${identityRow(
+                "Alamat",
+                val("pAlamat")
+            )}
+
+
+        </div>
+
+
+        <div class="legal-paragraph">
+
+            Selanjutnya disebut sebagai
+            <strong>PENGGUGAT</strong>.
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       TERGUGAT
+    ===================================================== */
+
+    const defendantHTML = `
+
+        <div class="against">
+            Dengan ini mengajukan gugatan terhadap:
+        </div>
+
+
+        <div class="party-title">
+            TERGUGAT
+        </div>
+
+
+        <div class="identity">
+
+
+            ${identityRow(
+                "Nama",
+                val("tNama")
+            )}
+
+
+            ${identityRow(
+                "Tempat Lahir",
+                val("tTempatLahir")
+            )}
+
+
+            ${identityRow(
+                "Tanggal Lahir",
+                dateID(
+                    val("tTanggalLahir")
+                )
+            )}
+
+
+            ${identityRow(
+                "Jenis Kelamin",
+                val("tGender")
+            )}
+
+
+            ${identityRow(
+                "Agama",
+                val("tAgama")
+            )}
+
+
+            ${identityRow(
+                "Pekerjaan",
+                val("tPekerjaan")
+            )}
+
+
+            ${identityRow(
+                "Alamat",
+                val("tAlamat")
+            )}
+
+
+        </div>
+
+
+        <div class="legal-paragraph">
+
+            Selanjutnya disebut sebagai
+            <strong>TERGUGAT</strong>.
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       KRONOLOGI
+    ===================================================== */
+
+    const chronology =
+        val("kronologi")
+            .split("\n")
+            .map(
+                item => item.trim()
+            )
+            .filter(Boolean);
+
+
+    let chronologyHTML = "";
+
+
+    chronology.forEach(
+        (item, index) => {
+
+            chronologyHTML += `
+
+                <div class="posita-row">
+
+                    <div class="posita-number">
+                        ${index + 5}.
+                    </div>
+
+                    <div class="posita-content">
+
+                        ${escapeHTML(item)}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    /* =====================================================
+       ANAK
+    ===================================================== */
+
+    let childrenHTML = "";
+
+
+    if (
+        val("adaAnak") === "Ya"
+    ) {
+
+        childrenHTML = `
+
+            <div class="posita-row">
+
+                <div class="posita-number">
+                    8.
+                </div>
+
+                <div class="posita-content">
+
+                    Bahwa dari perkawinan
+                    antara Penggugat dan Tergugat
+                    telah lahir anak, dengan data
+                    sebagai berikut:
+
+                    <br><br>
+
+                    ${nl2br(
+                        val("dataAnak")
+                    )}
+
+                    <br><br>
+
+                    ${nl2br(
+                        val("hakAsuh")
+                    )}
+
+                    <br><br>
+
+                    ${nl2br(
+                        val("nafkahAnak")
+                    )}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       PETITUM TAMBAHAN
+    ===================================================== */
+
+    let additionalPetitum = "";
+
+
+    if (
+        val("petitumTambahan")
+    ) {
+
+        additionalPetitum = `
+
+            <div class="petitum-row">
+
+                <div class="petitum-number">
+                    4.
+                </div>
+
+                <div class="petitum-content">
+
+                    ${nl2br(
+                        val("petitumTambahan")
+                    )}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       FINAL DOCUMENT
+    ===================================================== */
+
+    return `
+
+
+        <div class="legal-title">
+
+        </div>
+
+
+        <!-- PENGADILAN -->
+
+        <div class="court-address">
+
+            Kepada Yth.
+
+            <br>
+
+            <strong>
+                Ketua ${(courtName)}
+            </strong>
+
+            <br>
+            
+            </strong>
+
+            <br>
+
+            di -
+
+            <br>
+
+            <strong>
+                ${escapeHTML(courtName)}
+            </strong>
+
+        </div>
+
+
+        <!-- PENGGUGAT -->
+
+        ${plaintiffHTML}
+
+
+        <!-- TERGUGAT -->
+
+        ${defendantHTML}
+
+
+        <div class="legal-paragraph">
+
+            Dengan hormat,
+
+        </div>
+
+
+        <div class="legal-paragraph">
+
+            Penggugat dengan ini mengajukan
+            Gugatan Perceraian terhadap Tergugat
+            kepada Ketua ${courtType}
+            ${escapeHTML(courtName)}, dengan
+            alasan-alasan dan dasar-dasar sebagai
+            berikut:
+
+        </div>
+
+
+        <!-- =================================================
+             POSITA
+        ================================================== -->
+
+        <div class="section-title">
+            POSITA
+        </div>
+
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                1.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa Penggugat dan Tergugat
+                telah melangsungkan perkawinan
+                pada tanggal
+                <strong>
+                    ${escapeHTML(
+                        dateID(
+                            val("tanggalNikah")
+                        )
+                    )}
+                </strong>,
+                bertempat di
+                <strong>
+                    ${escapeHTML(
+                        val("tempatNikah") ||
+                        "[Tempat Perkawinan]"
+                    )}
+                </strong>;
+
+            </div>
+
+        </div>
+
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                2.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa perkawinan tersebut telah
+                dicatatkan sebagaimana dibuktikan
+                dengan
+                <strong>
+                    ${escapeHTML(
+                        val("nomorNikah") ||
+                        "[Nomor Buku/Akta Nikah]"
+                    )}
+                </strong>;
+
+            </div>
+
+        </div>
+
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                3.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa setelah melangsungkan
+                perkawinan, Penggugat dan Tergugat
+                hidup bersama sebagai suami istri
+                dan membina kehidupan rumah tangga;
+
+            </div>
+
+        </div>
+
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                4.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa dalam kehidupan rumah tangga
+                antara Penggugat dan Tergugat 
+                seiring berjalannya waktu telah
+                terjadi perselisihan dan/atau
+                pertengkaran yang menyebabkan
+                hubungan rumah tangga menjadi
+                tidak harmonis;
+
+            </div>
+
+        </div>
+
+
+        ${chronologyHTML}
+
+
+        ${childrenHTML}
+
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                9.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa berdasarkan keadaan tersebut,
+                hubungan rumah tangga antara
+                Penggugat dan Tergugat sudah tidak
+                dapat dipertahankan lagi dan tujuan
+                perkawinan tidak dapat diwujudkan
+                sebagaimana mestinya;
+
+            </div>
+
+        </div>
+               <div class="posita-row">
+
+            <div class="posita-number">
+                10.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa berdasarkan ketentuan Pasal 39 
+                Undang-Undang Nomor 1 Tahun 1974 tentang
+                Perkawinan sebagaimana telah diubah
+                dengan Undang-Undang Nomor 16 Tahun 2019, 
+                perceraian hanya dapat dilakukan di depan 
+                sidang pengadilan setelah pengadilan yang 
+                bersangkutan berusaha dan tidak berhasil
+                mendamaikan kedua belah pihak;
+
+            </div>
+
+        </div>
+
+        <div class="posita-row">
+
+            <div class="posita-number">
+                11.
+            </div>
+
+            <div class="posita-content">
+
+                Bahwa oleh karena itu, terdapat
+                alasan yang cukup menurut hukum
+                bagi Penggugat untuk mengajukan
+                Gugatan Perceraian terhadap Tergugat.
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PETITUM
+        ================================================== -->
+
+        <div class="section-title">
+            PETITUM
+        </div>
+
+
+        <div class="petitum-intro">
+
+            Berdasarkan seluruh uraian dan alasan
+            tersebut di atas, Penggugat memohon
+            kepada Ketua ${courtType}
+            ${escapeHTML(courtName)}
+            agar berkenan memeriksa, mengadili,
+            dan selanjutnya menjatuhkan putusan
+            sebagai berikut:
+
+        </div>
+
+
+        <div class="petitum-row">
+
+            <div class="petitum-number">
+                1.
+            </div>
+
+            <div class="petitum-content">
+
+                Mengabulkan Gugatan Penggugat
+                untuk seluruhnya;
+
+            </div>
+
+        </div>
+
+
+        <div class="petitum-row">
+
+            <div class="petitum-number">
+                2.
+            </div>
+
+            <div class="petitum-content">
+
+                Menyatakan perkawinan antara
+                Penggugat dan Tergugat putus
+                karena perceraian;
+
+            </div>
+
+        </div>
+
+
+        <div class="petitum-row">
+
+            <div class="petitum-number">
+                3.
+            </div>
+
+            <div class="petitum-content">
+
+                Membebankan biaya perkara
+                menurut ketentuan hukum
+                yang berlaku;
+
+            </div>
+
+        </div>
+
+
+        ${additionalPetitum}
+
+
+        <div class="petitum-row">
+
+            <div class="petitum-number">
+                5.
+            </div>
+
+            <div class="petitum-content">
+
+                Apabila Majelis Hakim berpendapat
+                lain, mohon putusan yang seadil-adilnya
+                (<em>ex aequo et bono</em>).
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PENUTUP
+        ================================================== -->
+
+        <div class="closing">
+
+            Demikian Gugatan Perceraian ini
+            diajukan. Atas perhatian dan
+            pemeriksaan serta putusan yang
+            diberikan oleh Yang Mulia Majelis
+            Hakim, Penggugat mengucapkan
+            terima kasih.
+
+        </div>
+
+
+        <!-- =================================================
+             TANDA TANGAN
+        ================================================== -->
+
+        <div class="signature">
+
+            ${escapeHTML(courtName)},
+
+            <br>
+
+            ${new Date().toLocaleDateString(
+                "id-ID",
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            )}
+
+            <br><br>
+
+            Penggugat,
+
+
+            <div class="signature-space"></div>
+
+
+            <div class="signature-name">
+
+                ${escapeHTML(
+                    val("pNama") ||
+                    "[NAMA PENGGUGAT]"
+                )}
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   GENERATE DRAFT
+========================================================= */
+
+$("generateBtn").addEventListener(
+    "click",
+    () => {
+
+        if (
+            !validateStep(currentStep)
+        ) {
+            return;
+        }
+
+
+        $("output").innerHTML =
+            buildDraftHTML();
+
+
+        $("wizard")
+            .classList.add("hidden");
+
+
+        $("resultSection")
+            .classList.remove("hidden");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   COPY
+========================================================= */
+
+$("copyBtn").addEventListener(
+    "click",
+    async () => {
+
+        const text =
+            $("output").innerText;
+
+
+        try {
+
+            await navigator.clipboard
+                .writeText(text);
+
+
+            $("copyStatus").textContent =
+                "Draft berhasil disalin.";
+
+        } catch (error) {
+
+            $("copyStatus").textContent =
+                "Gagal menyalin draft.";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DOWNLOAD TXT
+========================================================= */
+
+$("downloadBtn").addEventListener(
+    "click",
+    () => {
+
+        const text =
+            $("output").innerText;
+
+
+        const blob =
+            new Blob(
+                [text],
+                {
+                    type:
+                        "text/plain;charset=utf-8"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+        link.download =
+            "Gugatan_Perceraian.txt";
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        URL.revokeObjectURL(url);
+
+    }
+);
+
+
+/* =========================================================
+   SAVE PDF
+========================================================= */
+
+$("pdfBtn").addEventListener(
+    "click",
+    () => {
+
+        window.print();
+
+    }
+);
+
+
+/* =========================================================
+   EDIT FORM
+========================================================= */
+
+$("editBtn").addEventListener(
+    "click",
+    () => {
+
+        $("resultSection")
+            .classList.add("hidden");
+
+
+        $("wizard")
+            .classList.remove("hidden");
+
+
+        currentStep =
+            steps.length - 1;
+
+
+        showStep(currentStep);
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+showStep(0);
+
+</script>
+
+</body>
+</html>
